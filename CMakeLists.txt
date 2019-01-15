@@ -17,8 +17,7 @@ file( GLOB HEADERS ${PROJECT_SOURCE_DIR}
     src/*.h
 )
 
-# no effect
-# source_group("HEADERS" FILES ${HEADERS})
+source_group("HEADERS" FILES ${HEADERS})
 
 set( SOURCES ${PROJECT_SOURCE_DIR}
     src/btree.cpp
@@ -26,8 +25,7 @@ set( SOURCES ${PROJECT_SOURCE_DIR}
     test/test_btree.cpp
 )
 
-# no effect
-# source_group("SOURCES" FILES ${SOURCES})
+source_group("SOURCES" FILES ${SOURCES})
 
 include_directories(
     src
@@ -39,7 +37,4 @@ add_executable( ${PROJECT_NAME}
     ${HEADERS}
 )
 
-#target_link_libraries( ${PROJECT_NAME}
-#    sndfile
-#)
 
