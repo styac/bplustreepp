@@ -13,6 +13,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS}" )
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS}" )
 
 file( GLOB HEADERS ${PROJECT_SOURCE_DIR}
+    include/btree.h
     src/*.h
 )
 
@@ -30,6 +31,7 @@ set( SOURCES ${PROJECT_SOURCE_DIR}
 
 include_directories(
     src
+    include
 )
 
 add_executable( ${PROJECT_NAME}
