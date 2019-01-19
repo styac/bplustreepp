@@ -17,6 +17,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
 #include "btree.h"
 
 static int passes=0;
@@ -180,7 +183,9 @@ static void report(void)
 int main()
 {
 	struct btree *bt;
-	const char filename[] = "test.db";
+    const char * filename = "/tmp/test-btree-ksjdhflksjdfh.db";
+    remove(filename);
+
 
     fprintf(stdout, " -- PASS 1 --\n" );
 
@@ -214,6 +219,18 @@ int main()
 	test("do_deletes(50, 1, 33)", do_deletes(bt, 50, 1, 33));
 	test("btree_close", (btree_close(bt),1));
 
+    struct stat st;
+    stat(filename, &st);
+
+    fprintf(stdout, " -- PASS 5 -- file size: %lu \n", st.st_size );
+
+    test("btree_open(!BT_NOSYNC)", (bt = btree_open(filename, 0, 0644)) != NULL);
+    test("btree_compact", (btree_compact(bt)==0));
+    test("btree_close", (btree_close(bt),1));
+
+    stat(filename, &st);
+    fprintf(stdout, " -- PASS 6 -- file size: %lu \n", st.st_size );
+    
 	report();
 	return failures ? EXIT_FAILURE : EXIT_SUCCESS;
 }
